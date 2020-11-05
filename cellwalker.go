@@ -23,6 +23,10 @@ type CellWalker struct {
 func newCellWalker(col int, row int) *CellWalker {
 	if col > ColumnsLimit {
 		col = ColumnsLimit
+	} else {
+		if col < 1 {
+			col = 1
+		}
 	}
 	if row < 1 {
 		row = 1
@@ -151,4 +155,14 @@ func (c *CellWalker) Column(colName string) *CellWalker {
 // Row jump to a given row
 func (c *CellWalker) Row(row int) *CellWalker {
 	return newCellWalker(c.column, row)
+}
+
+// ColumnOffset return a cell with a given offset distance to column
+func (c *CellWalker) ColumnOffset(offset int) *CellWalker {
+	return newCellWalker(c.column+offset, c.row)
+}
+
+// RowOffset return a cell with a given offset distance to row
+func (c *CellWalker) RowOffset(offset int) *CellWalker {
+	return newCellWalker(c.column, c.row+offset)
 }

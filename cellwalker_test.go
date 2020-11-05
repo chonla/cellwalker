@@ -191,3 +191,51 @@ func TestJumpToAnyRowInTheSameColumn(t *testing.T) {
 
 	assert.Equal(t, "A778", result.String())
 }
+
+func TestPositiveColumnOffset(t *testing.T) {
+	result := At("A1").ColumnOffset(4)
+
+	assert.Equal(t, "E1", result.String())
+}
+
+func TestNegativeColumnOffset(t *testing.T) {
+	result := At("AB1").ColumnOffset(-4)
+
+	assert.Equal(t, "X1", result.String())
+}
+
+func TestVeryLargePositiveColumnOffset(t *testing.T) {
+	result := At("A1").ColumnOffset(40000000)
+
+	assert.Equal(t, "XFD1", result.String())
+}
+
+func TestVeryLargeNegativeColumnOffset(t *testing.T) {
+	result := At("XFD1").ColumnOffset(-40000000)
+
+	assert.Equal(t, "A1", result.String())
+}
+
+func TestPositiveRowOffset(t *testing.T) {
+	result := At("A1").RowOffset(4)
+
+	assert.Equal(t, "A5", result.String())
+}
+
+func TestNegativeRowOffset(t *testing.T) {
+	result := At("AB10").RowOffset(-4)
+
+	assert.Equal(t, "AB6", result.String())
+}
+
+func TestVeryLargePositiveRowOffset(t *testing.T) {
+	result := At("A1").RowOffset(40000000)
+
+	assert.Equal(t, "A1048576", result.String())
+}
+
+func TestVeryLargeNegativeRowOffset(t *testing.T) {
+	result := At("A1048576").RowOffset(-40000000)
+
+	assert.Equal(t, "A1", result.String())
+}
