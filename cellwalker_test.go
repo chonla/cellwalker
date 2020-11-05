@@ -66,6 +66,12 @@ func TestSpecifyCellWithCellID(t *testing.T) {
 	assert.Equal(t, "A1", result)
 }
 
+func TestSpecifyCellWithOutOfBoundColumnShouldMoveToTheEdge(t *testing.T) {
+	result := At("XFE1").String()
+
+	assert.Equal(t, "XFD1", result)
+}
+
 func TestSpecifyCellWithRowOnly(t *testing.T) {
 	result := At("B").String()
 
@@ -73,9 +79,9 @@ func TestSpecifyCellWithRowOnly(t *testing.T) {
 }
 
 func TestSpecifyCellWithLargeRowOnly(t *testing.T) {
-	result := At("BBBC").String()
+	result := At("CCC").String()
 
-	assert.Equal(t, "BBBC1", result)
+	assert.Equal(t, "CCC1", result)
 }
 
 func TestMoveCurrentCellUpward(t *testing.T) {
@@ -172,4 +178,16 @@ func TestCanMoveDownShouldReturnFalseIfAtTheDownMostCell(t *testing.T) {
 	result := At("A1048576").CanMoveDown()
 
 	assert.False(t, result)
+}
+
+func TestJumpToAnyColumnInTheSameRow(t *testing.T) {
+	result := At("A1").Column("X")
+
+	assert.Equal(t, "X1", result.String())
+}
+
+func TestJumpToAnyRowInTheSameColumn(t *testing.T) {
+	result := At("A1").Row(778)
+
+	assert.Equal(t, "A778", result.String())
 }

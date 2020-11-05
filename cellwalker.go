@@ -20,6 +20,23 @@ type CellWalker struct {
 	row    int
 }
 
+func newCellWalker(col int, row int) *CellWalker {
+	if col > ColumnsLimit {
+		col = ColumnsLimit
+	}
+	if row < 1 {
+		row = 1
+	} else {
+		if row > RowsLimit {
+			row = RowsLimit
+		}
+	}
+	return &CellWalker{
+		column: col,
+		row:    row,
+	}
+}
+
 // At initializes CellWalker by specify initial cell to start
 func At(cellID string) *CellWalker {
 	cleanCellID := strings.ToUpper(cellID)
@@ -32,10 +49,7 @@ func At(cellID string) *CellWalker {
 		row = 1
 	}
 
-	return &CellWalker{
-		column: ColumnNameToIndex(col),
-		row:    int(row),
-	}
+	return newCellWalker(ColumnNameToIndex(col), int(row))
 }
 
 // ColumnIndexToName converts column index to default excel name
@@ -77,10 +91,7 @@ func (c *CellWalker) Above() *CellWalker {
 	if rowAbove < 1 {
 		rowAbove = 1
 	}
-	return &CellWalker{
-		column: c.column,
-		row:    rowAbove,
-	}
+	return newCellWalker(c.column, rowAbove)
 }
 
 // Below to move down one row
@@ -89,10 +100,7 @@ func (c *CellWalker) Below() *CellWalker {
 	if rowBeneath > RowsLimit {
 		rowBeneath = RowsLimit
 	}
-	return &CellWalker{
-		column: c.column,
-		row:    rowBeneath,
-	}
+	return newCellWalker(c.column, rowBeneath)
 }
 
 // Right to move right one column
@@ -101,10 +109,7 @@ func (c *CellWalker) Right() *CellWalker {
 	if rowRight > ColumnsLimit {
 		rowRight = ColumnsLimit
 	}
-	return &CellWalker{
-		column: rowRight,
-		row:    c.row,
-	}
+	return newCellWalker(rowRight, c.row)
 }
 
 // Left to move left one column
@@ -113,10 +118,7 @@ func (c *CellWalker) Left() *CellWalker {
 	if rowLeft < 1 {
 		rowLeft = 1
 	}
-	return &CellWalker{
-		column: rowLeft,
-		row:    c.row,
-	}
+	return newCellWalker(rowLeft, c.row)
 }
 
 // CanMoveLeft determines if it is at the left most cell
@@ -137,4 +139,16 @@ func (c *CellWalker) CanMoveUp() bool {
 // CanMoveDown determines if it is at the bottom most cell
 func (c *CellWalker) CanMoveDown() bool {
 	return c.row < RowsLimit
+}
+
+// Column jump to a given colName
+func (c *CellWalker) Column(colName string) *CellWalker {
+	colIndex := ColumnNameToIndex(colName)
+
+	return newCellWalker(colIndex, c.row)
+}
+
+// Row jump to a given row
+func (c *CellWalker) Row(row int) *CellWalker {
+	return newCellWalker(c.column, row)
 }
