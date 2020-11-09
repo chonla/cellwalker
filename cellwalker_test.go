@@ -212,3 +212,51 @@ func TestTour(t *testing.T) {
 	assert.Equal(t, "E5", result7.String())
 	assert.Nil(t, result8)
 }
+
+func TestIsAtTopWithTopPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("C3").IsAtTopBoundary()
+
+	assert.True(t, result)
+}
+
+func TestIsAtTopWithNonTopPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("C4").IsAtTopBoundary()
+
+	assert.False(t, result)
+}
+
+func TestIsAtBottomWithBottomPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("D5").IsAtBottomBoundary()
+
+	assert.True(t, result)
+}
+
+func TestIsAtBottomWithNonBottomPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("C4").IsAtBottomBoundary()
+
+	assert.False(t, result)
+}
+
+func TestIsAtLeftWithLeftPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("B4").IsAtLeftBoundary()
+
+	assert.True(t, result)
+}
+
+func TestIsAtLeftWithNonLeftPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("C4").IsAtLeftBoundary()
+
+	assert.False(t, result)
+}
+
+func TestIsAtRightWithRightPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("E4").IsAtRightBoundary()
+
+	assert.True(t, result)
+}
+
+func TestIsAtRightWithNonRightPositionCell(t *testing.T) {
+	result := Within("B3:E5").At("C4").IsAtRightBoundary()
+
+	assert.False(t, result)
+}

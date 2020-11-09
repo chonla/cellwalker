@@ -155,3 +155,23 @@ func (c *CellWalker) Tour() *CellWalker {
 	}
 	return nil
 }
+
+// IsAtTopBoundary determine if current position is at the top of range
+func (c *CellWalker) IsAtTopBoundary() bool {
+	return c.position.RowIndex() == c.boundary.TopIndex()
+}
+
+// IsAtBottomBoundary determine if current position is at the bottom of range
+func (c *CellWalker) IsAtBottomBoundary() bool {
+	return c.position.RowIndex() == c.boundary.BottomIndex()
+}
+
+// IsAtLeftBoundary determine if current position is at the left of range
+func (c *CellWalker) IsAtLeftBoundary() bool {
+	return c.position.ColumnIndex() == c.boundary.LeftIndex()
+}
+
+// IsAtRightBoundary determine if current position is at the right of range
+func (c *CellWalker) IsAtRightBoundary() bool {
+	return c.position.ColumnIndex() == c.boundary.RightIndex()
+}
