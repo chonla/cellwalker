@@ -6,60 +6,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestConvertColumnIndexToSingleColumnName(t *testing.T) {
-	result := ColumnIndexToName(1)
-
-	assert.Equal(t, "A", result)
-}
-
-func TestConvertLastSingleColumnIndexToSingleColumnName(t *testing.T) {
-	result := ColumnIndexToName(26)
-
-	assert.Equal(t, "Z", result)
-}
-
-func TestConvertColumnIndexTo2CharactersColumnName(t *testing.T) {
-	result := ColumnIndexToName(27)
-
-	assert.Equal(t, "AA", result)
-}
-
-func TestConvertLastColumnIndexTo2CharactersColumnName(t *testing.T) {
-	result := ColumnIndexToName(52)
-
-	assert.Equal(t, "AZ", result)
-}
-
-func TestConvertComplexLastColumnIndexTo2CharactersColumnName(t *testing.T) {
-	result := ColumnIndexToName(702)
-
-	assert.Equal(t, "ZZ", result)
-}
-
-func TestColumnIndexTo3CharactersColumnName(t *testing.T) {
-	result := ColumnIndexToName(703)
-
-	assert.Equal(t, "AAA", result)
-}
-
-func TestColumnNameToSingleDigitIndex(t *testing.T) {
-	result := ColumnNameToIndex("A")
-
-	assert.Equal(t, 1, result)
-}
-
-func TestLast1CharColumnNameToIndex(t *testing.T) {
-	result := ColumnNameToIndex("Z")
-
-	assert.Equal(t, 26, result)
-}
-
-func TestFirst2CharsColumnNameToIndex(t *testing.T) {
-	result := ColumnNameToIndex("AA")
-
-	assert.Equal(t, 27, result)
-}
-
 func TestSpecifyCellWithCellID(t *testing.T) {
 	result := At("A1").String()
 
@@ -238,4 +184,31 @@ func TestVeryLargeNegativeRowOffset(t *testing.T) {
 	result := At("A1048576").RowOffset(-40000000)
 
 	assert.Equal(t, "A1", result.String())
+}
+
+func TestTour(t *testing.T) {
+	result1 := Within("B3:E5").At("C4")
+	result2 := result1.Tour()
+	result3 := result2.Tour()
+	result4 := result3.Tour()
+	result5 := result4.Tour()
+	result6 := result5.Tour()
+	result7 := result6.Tour()
+	result8 := result7.Tour()
+
+	assert.NotNil(t, result1)
+	assert.Equal(t, "C4", result1.String())
+	assert.NotNil(t, result2)
+	assert.Equal(t, "D4", result2.String())
+	assert.NotNil(t, result3)
+	assert.Equal(t, "E4", result3.String())
+	assert.NotNil(t, result4)
+	assert.Equal(t, "B5", result4.String())
+	assert.NotNil(t, result5)
+	assert.Equal(t, "C5", result5.String())
+	assert.NotNil(t, result6)
+	assert.Equal(t, "D5", result6.String())
+	assert.NotNil(t, result7)
+	assert.Equal(t, "E5", result7.String())
+	assert.Nil(t, result8)
 }
