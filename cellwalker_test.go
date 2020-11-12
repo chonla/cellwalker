@@ -260,3 +260,21 @@ func TestIsAtRightWithNonRightPositionCell(t *testing.T) {
 
 	assert.False(t, result)
 }
+
+func TestColumnIndex(t *testing.T) {
+	result := At("E4").ColumnIndex()
+
+	assert.Equal(t, 5, result)
+}
+
+func TestColumnName(t *testing.T) {
+	result := At("E4").ColumnName()
+
+	assert.Equal(t, "E", result)
+}
+
+func TestRowIndex(t *testing.T) {
+	result := At("E4").RowIndex()
+
+	assert.Equal(t, 4, result)
+}

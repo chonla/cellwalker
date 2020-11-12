@@ -175,3 +175,18 @@ func (c *CellWalker) IsAtLeftBoundary() bool {
 func (c *CellWalker) IsAtRightBoundary() bool {
 	return c.position.ColumnIndex() == c.boundary.RightIndex()
 }
+
+// ColumnIndex returns the current column number
+func (c *CellWalker) ColumnIndex() int {
+	return c.position.ColumnIndex()
+}
+
+// ColumnName returns the current column name
+func (c *CellWalker) ColumnName() string {
+	return ColumnIndexToName(c.position.ColumnIndex())
+}
+
+// RowIndex returns the current row number
+func (c *CellWalker) RowIndex() int {
+	return c.position.RowIndex()
+}
