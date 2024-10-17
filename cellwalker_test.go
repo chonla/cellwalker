@@ -286,3 +286,51 @@ func TestChainTraversal(t *testing.T) {
 
 	assert.Equal(t, "D3", result.String())
 }
+
+func TestLeftMostTraversalFromSomewhereInTheMiddle(t *testing.T) {
+	result := Within("C2:R10").At("D7").LeftMost()
+
+	assert.Equal(t, "C7", result.String())
+}
+
+func TestLeftMostTraversalFromLeftEdge(t *testing.T) {
+	result := Within("C2:R10").At("C7").LeftMost()
+
+	assert.Equal(t, "C7", result.String())
+}
+
+func TestRightMostTraversalFromSomewhereInTheMiddle(t *testing.T) {
+	result := Within("C2:R10").At("D7").RightMost()
+
+	assert.Equal(t, "R7", result.String())
+}
+
+func TestRightMostTraversalFromRightEdge(t *testing.T) {
+	result := Within("C2:R10").At("C7").RightMost()
+
+	assert.Equal(t, "R7", result.String())
+}
+
+func TestTopMostTraversalFromSomewhereInTheMiddle(t *testing.T) {
+	result := Within("C2:R10").At("D7").TopMost()
+
+	assert.Equal(t, "D2", result.String())
+}
+
+func TestTopMostTraversalFromTopEdge(t *testing.T) {
+	result := Within("C2:R10").At("D2").TopMost()
+
+	assert.Equal(t, "D2", result.String())
+}
+
+func TestBottomMostTraversalFromSomewhereInTheMiddle(t *testing.T) {
+	result := Within("C2:R10").At("D7").BottomMost()
+
+	assert.Equal(t, "D10", result.String())
+}
+
+func TestBottomMostTraversalFromBottomEdge(t *testing.T) {
+	result := Within("C2:R10").At("D10").BottomMost()
+
+	assert.Equal(t, "D10", result.String())
+}

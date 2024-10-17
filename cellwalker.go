@@ -76,7 +76,7 @@ func (c *CellWalker) LeftMost() *CellWalker {
 }
 
 // Rightmost to move rightmost column
-func (c *CellWalker) Rightmost() *CellWalker {
+func (c *CellWalker) RightMost() *CellWalker {
 	if c.CanMoveRight() {
 		rightMost := c.boundary.RightIndex()
 		return newCellWalker(newCell(rightMost, c.position.RowIndex()), c.boundary)
@@ -94,7 +94,7 @@ func (c *CellWalker) TopMost() *CellWalker {
 }
 
 // Bottommost to move bottommost column
-func (c *CellWalker) Bottommost() *CellWalker {
+func (c *CellWalker) BottomMost() *CellWalker {
 	if c.CanMoveDown() {
 		bottomMost := c.boundary.BottomIndex()
 		return newCellWalker(newCell(c.position.ColumnIndex(), bottomMost), c.boundary)
