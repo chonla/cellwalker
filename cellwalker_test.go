@@ -278,3 +278,11 @@ func TestRowIndex(t *testing.T) {
 
 	assert.Equal(t, 4, result)
 }
+
+func TestChainTraversal(t *testing.T) {
+	result := Within("C2:H3").At("C3").
+		Right(). // Cannot move further right, hit the boundary
+		Below()  // Move down
+
+	assert.Equal(t, "D3", result.String())
+}
