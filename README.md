@@ -1,5 +1,7 @@
 # Cell Walker
 
+[![codecov](https://codecov.io/github/chonla/cellwalker/graph/badge.svg?token=N2WFUOD9OB)](https://codecov.io/github/chonla/cellwalker)
+
 Cell Walker is a go package for virtually traversing Excel cell by cell's name. The package does not actually traverse into a real Excel file.
 
 ## Example
