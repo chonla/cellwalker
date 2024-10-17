@@ -306,7 +306,7 @@ func TestRightMostTraversalFromSomewhereInTheMiddle(t *testing.T) {
 }
 
 func TestRightMostTraversalFromRightEdge(t *testing.T) {
-	result := Within("C2:R10").At("C7").RightMost()
+	result := Within("C2:R10").At("R7").RightMost()
 
 	assert.Equal(t, "R7", result.String())
 }
